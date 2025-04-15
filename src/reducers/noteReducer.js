@@ -1,7 +1,7 @@
 export const noteReducer = (state = [], action) => {
     switch(action.type) {
       case 'NEW_NOTE':
-        return [...state, action.payload]
+        return state.push(action.payload)
       case 'TOGGLE_IMPORTANCE': {
         const id = action.payload.id
         const noteToChange = state.find(n => n.id === id)
@@ -16,4 +16,4 @@ export const noteReducer = (state = [], action) => {
       default:
         return state
     }
-  }
+}
