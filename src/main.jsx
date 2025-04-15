@@ -1,16 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
 import { configureStore } from '@reduxjs/toolkit'
-
-const noteReducer = (state = [], action) => {
-  if (action.type === 'NEW_NOTE') {
-    state.concat(action.payload)
-    return state
-  }
-
-  return state
-}
+import { noteReducer } from './reducers/noteReducer.js'
 
 const store = configureStore({
   reducer: noteReducer
