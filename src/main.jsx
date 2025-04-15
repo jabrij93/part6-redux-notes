@@ -3,21 +3,35 @@ import ReactDOM from 'react-dom/client'
 
 import { configureStore } from '@reduxjs/toolkit'
 
-const counterReducer = (state = 0, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return state + 1
-    case 'DECREMENT':
-      return state - 1
-    case 'ZERO':
-      return 0
-    default:
-      return state
+const noteReducer = (state = [], action) => {
+  if (action.type === 'NEW_NOTE') {
+    state.concat(action.payload)
+    return state
   }
+
+  return state
 }
 
 const store = configureStore({
-  reducer: counterReducer
+  reducer: noteReducer
+})
+
+store.dispatch({
+  type: 'NEW_NOTE',
+  payload: {
+    content: 'the app state is in redux store',
+    important: true,
+    id: 1
+  }
+})
+
+store.dispatch({
+  type: 'NEW_NOTE',
+  payload: {
+    content: 'state changes are made with actions',
+    important: false,
+    id: 2
+  }
 })
 
 const generateId = () =>
@@ -48,39 +62,14 @@ const App = () => {
   return (
     <div>
       <div>
-        {store.getState()}
+        <ul>
+          {store.getState().map(note=>
+            <li key={note.id}>
+              {note.content} <strong>{note.important ? 'important' : ''}</strong>
+            </li>
+          )}
+          </ul>
       </div>
-      <button 
-        onClick={e => store.dispatch({ type: 'INCREMENT' })}
-      >
-        plus
-      </button>
-      <button
-        onClick={e => store.dispatch({ type: 'DECREMENT' })}
-      >
-        minus
-      </button>
-      <button 
-        onClick={e => store.dispatch({ type: 'ZERO' })}
-      >
-        zero
-      </button>
-
-      <form onSubmit={addNote}>
-        <input name="note" /> 
-        <button type="submit">add</button>
-      </form>
-
-      <ul>
-        {store.getState().map(note =>
-          <li
-            key={note.id} 
-            onClick={() => toggleImportance(note.id)}
-          >
-            {note.content} <strong>{note.important ? 'important' : ''}</strong>
-          </li>
-        )}
-      </ul>
     </div>
   )
 }
