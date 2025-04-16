@@ -7,7 +7,9 @@ import App from './App'
 import noteReducer from './reducers/noteReducer'
 
 const store = configureStore({
-  reducer: noteReducer
+  reducer: {
+    notes: noteReducer
+  }
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(

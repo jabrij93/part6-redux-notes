@@ -8,7 +8,7 @@ const generateId = () =>
 
 const App = () => {
   const dispatch = useDispatch()
-  const notes = useSelector(state => state)
+  const notes = useSelector(state => state.notes)
 
   const addNote = (event) => {
     event.preventDefault()
