@@ -1,58 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { createNote, toggleImportanceOf } from './reducers/noteReducer'
+import { useSelector, useDispatch } from 'react-redux'  
 
-function App() {
-  const [count, setCount] = useState(0)
+const generateId = () =>
+  Number((Math.random() * 1000000).toFixed(0))
 
-  const generateId = () =>
-    Number((Math.random() * 1000000).toFixed(0))
+const App = () => {
+  const dispatch = useDispatch()
+  const notes = useSelector(state => state)
 
   const addNote = (event) => {
     event.preventDefault()
     const content = event.target.note.value
     event.target.note.value = ''
-    store.dispatch({
-      type: 'NEW_NOTE',
-      payload: {
-        content,
-        important: false,
-        id: generateId()
-      }
-    })
+    dispatch(createNote(content))
   }
 
   const toggleImportance = (id) => {
-    store.dispatch({
-      type: 'TOGGLE_IMPORTANCE',
-      payload: { id }
-    })
+    dispatch(toggleImportanceOf(id))
   }
 
   return (
-    <>
+    <div>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <form onSubmit={addNote}>
+          <input name="note" /> 
+          <button type="submit">add</button>
+        </form>
+        <ul>
+          {notes.map(note =>
+            <li 
+              key={note.id}
+              onClick={() => toggleImportance(note.id)}
+              >
+              {note.content} <strong>{note.important ? 'important' : ''}</strong>
+            </li>
+          )}
+        </ul>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
