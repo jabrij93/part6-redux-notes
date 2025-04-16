@@ -53,6 +53,10 @@ const App = () => {
   return (
     <div>
       <div>
+        <form onSubmit={addNote}>
+          <input name="note" /> 
+          <button type="submit">add</button>
+        </form>
         <ul>
           {store.getState().map(note=>
             <li key={note.id}>
