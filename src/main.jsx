@@ -71,7 +71,7 @@ const App = () => {
               {note.content} <strong>{note.important ? 'important' : ''}</strong>
             </li>
           )}
-          </ul>
+        </ul>
       </div>
     </div>
   )
