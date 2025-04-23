@@ -9,15 +9,18 @@ import filterReducer from './reducers/filterReducer'
 import { createNote } from './reducers/noteReducer'
 import { filterChange } from './reducers/filterReducer'
 
-const reducer = combineReducers({
-  notes: noteReducer,
-  filter: filterReducer
-})
+// const reducer = combineReducers({
+//   notes: noteReducer,
+//   filter: filterReducer
+// })
 
 // const store = configureStore(reducer2)
 
 const store = configureStore({
-  reducer: reducer
+  reducer: {
+    notes: noteReducer,
+    filter: filterReducer
+  }
 })
 
 store.subscribe(() => console.log(store.getState()))
