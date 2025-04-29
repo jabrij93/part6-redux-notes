@@ -19,7 +19,7 @@ const generateId = () =>
 
 const noteSlice = createSlice({
   name: 'notes',
-  initialState,
+  initialState: [],
   reducers: {
     createNote(state, action) {
       const content = action.payload
