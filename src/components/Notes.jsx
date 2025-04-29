@@ -12,9 +12,23 @@ const Note = ({ note, handleClick }) => {
 
 const Notes = () => {
   const dispatch = useDispatch()
+
+  const selected = useSelector(state => {
+    console.log('Redux state:', state)
+    return state
+  })
+
   const notes = useSelector(({ filter, notes }) => {
+    console.log('Selector - notes:', notes)  // add this
+    console.log('Selector - filter:', filter)
+
+    if (!Array.isArray(notes)) {
+      console.error('notes is NOT an array:', notes)
+      return []
+    }
+
     if ( filter === 'ALL' ) {
-      return notes
+        return notes
     }
     return filter  === 'IMPORTANT' 
       ? notes.filter(note => note.important)

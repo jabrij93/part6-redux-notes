@@ -18,11 +18,11 @@ const store = configureStore({
   }
 })
 
-noteService.getAll().then(notes =>
-  notes.forEach(note => {
-    store.dispatch(setNotes(note))
-  })
-)
+// noteService.getAll().then(notes =>
+//   notes.forEach(note => {
+//     store.dispatch(setNotes(note))
+//   })
+// )
 
 // store.subscribe(() => console.log(store.getState()))
 store.dispatch(filterChange('IMPORTANT'))
